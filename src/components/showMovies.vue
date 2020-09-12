@@ -1,7 +1,10 @@
 <template lang="pug">
   #show-movies
     h1 Liste des films populaires actuels sur TMDb
-    input(type="text", v-model="searchValue", placeholder="Search Movies", id="inputSearch")
+    .form__group.field
+      input(type="text", v-model="searchValue", class="form__input")
+      label Search Movies
+      span.focus-border
     ul.card-list
       li#movie-card.movie(v-for="movie in filteredMovies")
         .movie__data
@@ -64,8 +67,60 @@
       text-transform: uppercase;
     }
 
-    #inputSearch {
+    .form__group {
+      position: relative;
+      margin: 30px auto;
+      width: 50%;
 
+      .form__input {
+        color: #2B2D42;
+        width: 100%;
+        box-sizing: border-box;
+        letter-spacing: 1px;
+        border: 0;
+        padding: 4px 0;
+        border-bottom: 1px solid #2B2D42;
+        background-color: transparent;
+        outline: none;
+
+        &:focus ~ .focus-border {
+          width: 100%;
+          transition: 0.4s;
+          left: 0;
+        }
+
+        &:focus ~ label {
+          top: -16px;
+          font-size: 12px;
+          color: #4caf50;
+          transition: 0.3s;
+        }
+      }
+
+      label {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        top: 5px;
+        color: #2B2D42;
+        transition: 0.3s;
+        z-index: -1;
+        letter-spacing: 0.5px;
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 700;
+      }
+
+      .focus-border {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background-color: #4caf50;
+          transition: 0.4s;
+        }
     }
 
     .card-list {
