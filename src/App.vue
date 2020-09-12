@@ -1,16 +1,16 @@
 <template lang="pug">
   #app
-    show-blogs
+    show-movies
 
 </template>
 
 <script>
-import showBlogs from './components/showBlogs.vue'
+import showMovies from './components/showMovies.vue'
 
 export default {
   name: 'App',
   components: {
-    'show-blogs': showBlogs
+    'show-movies': showMovies
   }
 }
 </script>

@@ -1,8 +1,9 @@
 <template lang="pug">
-  #show-blogs
+  #show-movies
     h1 Liste des films populaires actuels sur TMDb
+    input(type="text", v-model="searchValue", placeholder="Search Movies", id="inputSearch")
     ul.card-list
-      li#movie-card.movie(v-for="movie in movies")
+      li#movie-card.movie(v-for="movie in filteredMovies")
         .movie__data
           .movie__poster
             span.movie__poster--fill
@@ -25,17 +26,25 @@
    data: () => {
      return {
        link: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2',
-       movies: []
+       movies: [],
+       searchValue: ''
      }
    },
    methods: {
 
    },
-   created() {
+   mounted() {
      this.$http.get('https://api.themoviedb.org/3/movie/popular?api_key=cc4c125990f5777406886df6fdb3e266').then((data) => {
        this.movies = data.body.results;
        console.log(this.movies);
      })
+   },
+   computed: {
+     filteredMovies: function() {
+       return this.movies.filter((movie) => {
+         return movie.title.toLowerCase().includes(this.searchValue.toLowerCase());
+       })
+     }
    }
   }
 </script>
@@ -43,10 +52,21 @@
 <style lang="scss" scoped>
   @import url('../assets/scss/index.scss');
   @import url('https://fonts.googleapis.com/css?family=Lato:400,900');
-  #show-blogs {
+  #show-movies {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0px 20px;
+
+    h1 {
+      color: #2B2D42;
+      font-weight: 700;
+      margin:30px 0px;
+      text-transform: uppercase;
+    }
+
+    #inputSearch {
+
+    }
 
     .card-list {
       display: flex;
